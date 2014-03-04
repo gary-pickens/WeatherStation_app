@@ -1,0 +1,30 @@
+{% extends "layout.html" %}
+{% block contents %}
+
+<h3 style="text-align:center">Sensor</h3>
+<table id="content-table">
+    {% for s in sensor_metadata %}
+        <tr>
+        {% if s.checked %}
+            <td style="width:5%"><input id="{{s.sensor_name}}_check" class="checked" type="checkbox" name="graphs" checked="true"></td>
+        {% else %}
+            <td style="width:5%"><input id="{{s.sensor_name}}_check" class="checked" type="checkbox" name="graphs"></td>
+        {% endif %}
+	        <td id="name" style="width:55%" ><div id="{{s.sensor_name}}Label">{{s.display_name}}</div></td>
+	        <td id="{{s.sensor_name}}" style="width:40%" align="right"></td>
+        </tr>
+    {%- endfor %}
+</table>
+
+<h3 style="text-align:center">Time Span</h3>
+<table id="time_span">
+    <tr><td><input id="6hour" class="time_tick" type="radio" name="time_span" value="6hour" checked></td><td>6 Hour</td></tr>    
+    <tr><td><input id="daily" class="time_tick" type="radio" name="time_span" value="daily" checked></td><td>Daily</td></tr>    
+    <tr><td><input id="weekly" class="time_tick" type="radio" name="time_span" value="weekly"></td><td>Weekly</td></tr>
+    <tr><td><input id="monthly" class="time_tick" type="radio" name="time_span" value="monthly"></td><td>Monthly</td></tr>    
+    <tr><td><input id="yearly" class="time_tick" type="radio" name="time_span" value="yearly"></td><td>Yearly</td></tr>
+</table>
+<button type="button" onclick" onclick="gather_requested_data()">Graph</button>
+
+</script>
+{% endblock %}

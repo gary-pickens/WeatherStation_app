@@ -1,0 +1,43 @@
+<!doctype html>
+<title>Weather Station</title>
+
+<link rel=stylesheet type=text/css href="//code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css"></link>
+<link rel=stylesheet type=text/css href="http://cdnjs.cloudflare.com/ajax/libs/rickshaw/1.4.6/rickshaw.min.css"></link>
+
+<link rel=stylesheet type=text/css href="{{ url_for('static', filename='style.css') }}"></link>
+
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
+<script type="text/javascript" src="http://d23cj0cdvyoxg0.cloudfront.net/xivelyjs-1.0.4.min.js"></script>  
+<script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/d3/3.4.1/d3.min.js"></script>
+<script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/rickshaw/1.4.6/rickshaw.min.js"></script>
+<script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/moment.js/2.5.1/moment.min.js"></script>
+
+<script type="text/javascript" src={{ url_for('static', filename='date_time.js') }}></script>
+<script type="text/javascript" src={{ url_for('static', filename='content.js') }}></script>
+<script type="text/javascript" src={{ url_for('static', filename='graph.js') }}></script>
+
+<div id="top_section">
+    <div id="title">{{title}}</div>
+</div>
+<div id="mid_section">
+	<div id="contents">
+        {% block contents %}
+        {% endblock %}
+	</div>
+    <div id="presentation">
+        {% block presentation %}
+        {% endblock%}
+    </div>
+</div>
+<div id="bottom_section">
+    <div id="left_status" class="bottom_sections">
+        <div id="datetime">
+            <script type="text/javascript">window.onload = current_time("#datetime");</script>
+        </div>
+    </div>
+    <div id="center_status" class="bottom_sections">
+    </div>
+    <div id="right_status" class="bottom_sections">
+    </div>
+</div>
