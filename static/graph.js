@@ -3,7 +3,7 @@ reject = new Array();
 reject["Temperature"] = {min:-20, max:130};
 reject["Battery"] = {min:-1, max:15.0};
 reject["Humidity"] = {min:-1, max:100};
-reject["Pressure"] = {min:0, max:120};
+reject["Pressure"] = {min:10, max:120};
 reject["WindDirection"] = {min:0, max:360};
 reject["DailyRain"] = {min:0, max:20};
 reject["Rain"] = {min:0, max:20};
@@ -83,8 +83,12 @@ var GraphXivelyData = {
 	},
 	
 	load_data: function (data) {
-		if (data.datapoints == null || data.datapoints.length == 0) {
-			$("#center_status").html("ERROR(graph.js 87) Error reading " + GraphXivelyData.sensors[0])
+		if (data.datapoints == null) {
+			$("#center_status").html("ERROR(graph.js 87) Error reading " + GraphXivelyData.sensors[0] + " data.datapoints == null")
+			return
+		}
+		if (data.datapoints.length == 0) {
+			$("#center_status").html("ERROR(graph.js 87) Error reading " + GraphXivelyData.sensors[0]) + " data.points.length == 0"
 			return
 		}
 		var series = [];

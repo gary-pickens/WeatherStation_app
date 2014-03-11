@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="Bruce's Weather Station" default="test">
+    <buildnumber/>
+    <property name="version" value="0-1-${build.number}" />
+    <property name="project" value="mountain-cabin" />
+    <property name="author" value="Gary Pickens" />
+    <property name="email" value="gary_pickens@yahoo.com" />
+    <property name="title" value="Bruce's Weather Station"/>
+    <property name="current.dir" value="${basedir}" />
+    <property name="appengine_home" value="${user.home}/google_appengine" />
+
+    <condition property="isUnix">
+        <os family="unix"/>
+    </condition>
+    
+    <condition property="isWindows">
+        <os family="windows"/>
+    </condition>
+    
+    <tstamp>
+      <format property="now" pattern="yyyy-MM-dd HH:mm:ss"/>
+    </tstamp>
+    
+    <target name="create app.yaml">
+	    <loadfile property="app.yaml.template" srcfile="app.yaml.template">
+	         <filterchain>
+	          <replacetokens>
+	            <token key="VERSION" value="${version}"/>
+	            <token key="PROJECT" value="${project}"/>
+	          </replacetokens>
+	         </filterchain>
+	    </loadfile>
+	    <echo file="app.yaml">${app.yaml.template}</echo>
+    </target>
+        
+    <target name="test" depends="create app.yaml">
+        <exec executable="python" failonerror="true">
+            <arg line="${appengine_home}/dev_appserver.py" />
+            <arg line="." />
+        </exec>        
+    </target>
+    
+    <target name="install" depends="create app.yaml">       
+        <exec executable="python" failonerror="true">
+            <arg line="${appengine_home}/appcfg.py  --oauth2 update ." />
+            <arg line="--oauth2" />
+            <arg line="update" />
+            <arg line="." />
+        </exec>        
+    </target>
+
+    <!-- Documentation Section
+    <target name="doc-windows" 
+        description="build documentation" 
+        if="${isWindows}" 
+        depends="doc-create">
+        <exec executable="cmd.exe" dir="docs" failonerror="true">
+            <arg line="/c make.bat html" />
+        </exec>
+    </target>
+    <target name="doc-linux" 
+        description="build documentation" 
+        if="${isUnix}" 
+        depends="doc-create">
+        <exec executable="make" dir="docs" failonerror="true">
+            <arg line="html" />
+        </exec>
+    </target>
+    <target name="Doc" description="Build HouseMonitor Documentation"
+        depends="doc-linux, doc-windows" />
+    <target name="doc-create" description="build documentation" 
+        depends="doc-clean">
+        <exec executable="sphinx-apidoc"> 
+            <arg value="-H ${project}"/>
+            <arg value="-A ${author}"/>
+            <arg value="-V ${version}"/>
+            <arg value="-o"/>
+            <arg value="docs"/> 
+            <arg value="${basedir}/housemonitor"/> 
+        </exec>
+    </target>
+    <target name="doc-clean" description="remove intermediate files">
+        <delete>
+            <fileset dir="${basedir}">
+                <include name="docs/HouseMonitor*.rst" />
+                <include name="docs/housemonitor*.rst" />
+                <include name="docs\_build" />
+            </fileset>
+        </delete>
+        <delete dir="docs\_build"/>
+    </target>
+     -->
+</project>

@@ -1,8 +1,6 @@
 /**
  * 
  */
-xivelyKey = "4mQVPDxR9qd8F3PK97XUmMRZ72Y0RQRqWs2x5Ve7gGIZBgjB"
-xivelyFeedID = "325548065"
 
 function current_time(id)
 {
@@ -13,6 +11,7 @@ function current_time(id)
 
 function gather_requested_data() {
     // Get the selected sensors
+	$("#center_status").html("")
     selected_sensors = new Array()
     checked = $(".checked")
     for (i=0; i<checked.length; i++){
@@ -57,7 +56,7 @@ reject = new Array()
 reject["Temperature"] = {min:-20, max:130};
 reject["Battery"] = {min:-1, max:15.0};
 reject["Humidity"] = {min:-1, max:100};
-reject["Pressure"] = {min:0, max:120};
+reject["Pressure"] = {min:20, max:120};
 reject["WindDirection"] = {min:0, max:360};
 reject["DailyRain"] = {min:0, max:20};
 reject["Rain"] = {min:0, max:20};
@@ -85,8 +84,8 @@ function rejected(id, value){
 function display_data(feed){
      var at = 1
      var new_value;
-     if (feed == null) {
-	     if (feed.status == 200){
+     if (feed != null) {
+	     if (feed.status == "frozen"){
 		     for (var i = 0; i < feed.datastreams.length; i++){
 		    	 var id = feed.datastreams[i].id;
 		         var current_value = feed.datastreams[i].current_value;
@@ -101,7 +100,8 @@ function display_data(feed){
 		         }
 		     }
 		     var time_of_last_update = moment(at).format("YYYY-MM-DD HH:mm:ss");
-		     $("#right_status").html("Last update: " + time_of_last_update)
+	    	 $("#LastUpdate").html(time_of_last_update)
+	    	 $("#center_status").html("")
 	     }
 	     else
 	     {

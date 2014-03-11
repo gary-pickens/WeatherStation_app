@@ -12,9 +12,12 @@
 <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/d3/3.4.1/d3.min.js"></script>
 <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/rickshaw/1.4.6/rickshaw.min.js"></script>
 <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/moment.js/2.5.1/moment.min.js"></script>
-
+<script>
+xivelyKey='{{xivelykey}}'
+xivelyFeedID={{xivelyfeedid}}
+</script>
 <script type="text/javascript" src={{ url_for('static', filename='date_time.js') }}></script>
-<script type="text/javascript" src={{ url_for('static', filename='content.js') }}></script>
+<script type="text/javascript" src={{ url_for('static', filename='weatherstation.js') }}></script>
 <script type="text/javascript" src={{ url_for('static', filename='graph.js') }}></script>
 
 <div id="top_section">
@@ -39,5 +42,7 @@
     <div id="center_status" class="bottom_sections">
     </div>
     <div id="right_status" class="bottom_sections">
+    <div style="float:left;padding-right:5px;">Last Update:</div>
+    <div id="LastUpdate" style="float:left"></div>
     </div>
 </div>
